@@ -1,6 +1,6 @@
 # Toado 🐸
 
-*Garden to-dos, toad-ally local.*
+*Your little garden helper.*
 
 Toado is a year-round garden to-do app with a toad on it. It looks at your own garden (trees, bushes, beds, greenhouse), the season and today's weather, then gives you a few short jobs to do outside. Gemma runs locally through Ollama, so your garden data stays on your machine.
 
