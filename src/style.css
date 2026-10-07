@@ -24,6 +24,25 @@ body {
   padding: 16px;
 }
 
+.brand {
+  max-width: 560px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.brand-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.brand-tagline {
+  color: var(--muted);
+  font-style: italic;
+}
+
 .card {
   max-width: 560px;
   margin: 0 auto;

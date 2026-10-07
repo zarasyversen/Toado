@@ -1,6 +1,8 @@
-# TouchGrass
+# Toado 🐸
 
-A year-round garden companion. It looks at your own garden (trees, bushes, beds, greenhouse), the season and today's weather, then gives you a few short jobs to do outside. Gemma runs locally through Ollama, so your garden data stays on your machine.
+*Garden to-dos, toad-ally local.*
+
+Toado is a year-round garden to-do app with a toad on it. It looks at your own garden (trees, bushes, beds, greenhouse), the season and today's weather, then gives you a few short jobs to do outside. Gemma runs locally through Ollama, so your garden data stays on your machine.
 
 ## Setup
 
