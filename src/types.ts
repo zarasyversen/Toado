@@ -52,6 +52,8 @@ export interface Area {
   kind: AreaKind;
   /** A covered area gets no rain, so rain never counts as watering there. */
   covered: boolean;
+  /** Greenhouse vents that open by themselves, so no daily open/close reminders. */
+  autoVents?: boolean;
   notes?: string;
 }
 
@@ -62,8 +64,12 @@ export interface Plant {
   id: string;
   name: string;
   kind: PlantKind;
-  /** Key into the care profiles (step 3), e.g. "apple". */
+  /** Key into the care profiles, e.g. "apple". */
   profileId?: string;
+  /** The cultivar, e.g. "Melonäpple". Shown instead of the name when set. */
+  variety?: string;
+  /** Where this plant differs from its profile, e.g. a later harvest for this variety. */
+  care?: CareOverrides;
   areaId?: string;
   inPot?: boolean;
   count?: number;
@@ -88,6 +94,8 @@ export type EventType =
   | 'greenhouse-closed'
   | 'pruned'
   | 'fed'
+  | 'mulched'
+  | 'sown'
   | 'harvested'
   | 'cleared'
   | 'protected'
@@ -100,4 +108,37 @@ export interface GardenEvent {
   plantIds?: string[];
   areaId?: string;
   note?: string;
+}
+
+export type CareJob = 'prune' | 'feed' | 'mulch' | 'sow' | 'harvest';
+
+export interface CareProfile {
+  id: string;
+  name: string;
+  kind: PlantKind;
+  /** Days between waterings in dry weather, in open ground. */
+  waterEveryDays: number;
+  /** Protect it when the night gets colder than this (°C). */
+  frostHardyTo: number;
+  /** Months (1–12) for each job, as in a temperate northern garden. */
+  months: Partial<Record<CareJob, number[]>>;
+  tips?: Partial<Record<CareJob, string>>;
+}
+
+export type CareOverrides = Partial<Pick<CareProfile, 'waterEveryDays' | 'frostHardyTo' | 'months' | 'tips'>>;
+
+export type TaskKind = 'greenhouse' | 'frost' | 'heat' | 'wind' | 'water' | 'clear' | CareJob;
+
+export interface Task {
+  /** Stable across days, e.g. "water:berries", so a "done" tap can be matched. */
+  id: string;
+  kind: TaskKind;
+  title: string;
+  reason: string;
+  /** 0–100; frost tonight beats pruning. */
+  priority: number;
+  plantIds?: string[];
+  areaId?: string;
+  /** The event to log when the task is marked done. */
+  logAs?: EventType;
 }

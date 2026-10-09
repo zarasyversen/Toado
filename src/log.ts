@@ -40,7 +40,7 @@ export function lastEvent(events: GardenEvent[], type: EventType, plant: Plant):
 
 const DAY_MS = 86_400_000;
 
-function wholeDaysBetween(fromIso: string, now: Date): number {
+export function wholeDaysBetween(fromIso: string, now: Date): number {
   return Math.max(0, Math.floor((now.getTime() - new Date(fromIso).getTime()) / DAY_MS));
 }
 

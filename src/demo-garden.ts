@@ -32,7 +32,14 @@ export function demoGarden(): Garden {
       },
     ],
     plants: [
-      { id: 'apple', name: 'Apple trees', kind: 'tree', profileId: 'apple', areaId: 'orchard', status: 'growing' },
+      {
+        id: 'apple-melon', name: 'Apple tree', variety: 'Melonäpple', kind: 'tree', profileId: 'apple',
+        areaId: 'orchard', status: 'growing', care: { months: { harvest: [10] } },
+      },
+      {
+        id: 'apple-kanel', name: 'Apple tree', variety: 'Rysk gul kaneläpple', kind: 'tree', profileId: 'apple',
+        areaId: 'orchard', status: 'growing', care: { months: { harvest: [9] } },
+      },
       { id: 'pear', name: 'Pear trees', kind: 'tree', profileId: 'pear', areaId: 'orchard', status: 'growing' },
       { id: 'blueberry', name: 'Highbush blueberries', kind: 'bush', profileId: 'highbush-blueberry', areaId: 'berries', status: 'growing' },
       { id: 'blackcurrant', name: 'Blackcurrant', kind: 'bush', profileId: 'blackcurrant', areaId: 'berries', status: 'growing' },
