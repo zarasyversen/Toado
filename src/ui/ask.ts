@@ -94,8 +94,8 @@ export function askView(app: App): HTMLElement {
   return h('section', { class: 'card ask' },
     h('h1', null, 'Ask the garden'),
     h('p', { class: 'muted' }, ready
-      ? `Gemma knows your plants, your log and this week’s weather. Add a photo of a leaf or a fruit and it’ll have a look. It runs on this computer, so your questions and photos stay here.`
-      : app.ctx ? 'Start Ollama to ask questions. Gemma runs on this computer.' : 'Set up your garden first, so Gemma has something to go on.'),
+      ? `Gemma knows your plants, your log and this week’s weather. Add a photo of a leaf or a fruit and it’ll have a look. It runs on your own computer, so your questions and photos stay at home.`
+      : app.ctx ? 'Start Ollama on your computer to ask questions.' : 'Set up your garden first, so Gemma has something to go on.'),
     h('div', { class: 'conversation', 'aria-live': 'polite' }, bubbles),
     !history.length && ready && h('div', { class: 'row wrap' },
       STARTERS.map((q) => h('button', { class: 'secondary small', onclick: () => ask(app, q) }, q))),

@@ -73,7 +73,7 @@ function sourceLine(app: App): HTMLElement {
   const text = app.planning
     ? 'Gemma is writing today’s plan…'
     : plan.source === 'gemma'
-      ? `Planned by ${app.model}, running on this computer.`
+      ? `Planned by ${app.model}, running on your own computer.`
       : app.tasks.length
         ? 'Gemma isn’t running, so this is the rules’ own list.'
         : '';
