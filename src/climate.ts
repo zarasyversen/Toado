@@ -12,6 +12,11 @@ export function hemisphere(lat: number): Hemisphere {
   return lat < 0 ? 'south' : 'north';
 }
 
+/** The same point in the year on the other side of the equator (the shift works both ways). */
+export function otherHemisphere(month: number): number {
+  return ((month + 5) % 12) + 1;
+}
+
 const DAY_MS = 86_400_000;
 
 /**

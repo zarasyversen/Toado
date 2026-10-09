@@ -1,6 +1,6 @@
 import type { CareJob, CareOverrides, CareProfile, Garden, PlantKind, Task } from './types';
 import type { RuleContext } from './rules';
-import { hemisphere } from './climate';
+import { hemisphere, otherHemisphere } from './climate';
 import { celsius, tonightMin } from './rules/context';
 import { wholeDaysBetween } from './log';
 import { chatJson, chatStream, type ChatMessage, type OllamaOptions } from './ollama';
@@ -105,7 +105,7 @@ You get a description of the garden and a list of candidate jobs. The candidates
 - Pick the 2–${PLAN_MAX} jobs that matter most today, in the order they should be done. Frost and greenhouse jobs are time-critical.
 - You may merge closely related candidates into one job; list every id it covers.
 - Title: a short instruction, at most 8 words, naming the actual plants.
-- Reason: one plain sentence using only facts given to you. Never invent temperatures, dates, plants or events.
+- Reason: one plain sentence using only facts given to you. Keep any practical tip from the candidate's reason (how or why to do it); don't just restate the title. Never invent temperatures, dates, plants or events.
 - Summary: one or two warm sentences about today in this garden, nudging the reader outside.`;
 
 function planSchema(ids: string[]): object {
@@ -220,11 +220,6 @@ function clamp(value: unknown, min: number, max: number, fallback: number): numb
   return typeof value === 'number' && Number.isFinite(value) ? Math.min(max, Math.max(min, value)) : fallback;
 }
 
-/** The same point in the year on the other side of the equator (a shift both ways). */
-function otherHemisphere(month: number): number {
-  return ((month + 5) % 12) + 1;
-}
-
 /** A care profile from Gemma's answer, with every value checked and kept in range. */
 export function parseCareProfile(raw: unknown, name: string, variety: string | undefined, south: boolean): CareProfile {
   const json = (raw ?? {}) as Record<string, unknown>;
@@ -308,13 +303,22 @@ export function overridesFrom(base: CareProfile, suggested: CareProfile): CareOv
 
 const ASK_SYSTEM = `You are Toado, a friendly and practical garden helper who knows this one garden well.
 
-Answer in under 120 words of plain text, no markdown. Be specific to this garden, its plants, its weather and its log. If you're not sure, say so rather than guessing. Where it fits, end with something to go and look at outside.`;
+Answer in under 120 words of plain text, no markdown. Be specific to this garden, its plants, its weather and its log. If you're not sure, say so rather than guessing. Where it fits, end with something to go and look at outside.
+
+When a photo comes with the question, first say what you can actually see in it and how sure you are. Leaves and fruit can look alike across many problems, so name the likeliest cause, then what to check outside to tell it apart from the others.`;
+
+/** A question for Gemma, maybe with a photo taken in the garden. */
+export interface Question {
+  text: string;
+  /** A JPEG, base64 without the data: prefix. */
+  photo?: string;
+}
 
 /** Gemma's answer about the garden, streamed as it is written. */
 export function askGarden(
   ctx: RuleContext,
   tasks: Task[],
-  question: string,
+  question: Question,
   history: ChatMessage[] = [],
   opts: OllamaOptions = {},
 ): AsyncGenerator<string> {
@@ -323,7 +327,7 @@ export function askGarden(
     [
       { role: 'system', content: `${ASK_SYSTEM}\n\n${context}` },
       ...history,
-      { role: 'user', content: question },
+      { role: 'user', content: question.text, images: question.photo ? [question.photo] : undefined },
     ],
     opts,
   );

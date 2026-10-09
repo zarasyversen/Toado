@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { describeGarden, overridesFrom, parseCareProfile, parsePlan, planDay, suggestCare } from './gemma';
+import { askGarden, describeGarden, overridesFrom, parseCareProfile, parsePlan, planDay, suggestCare } from './gemma';
 import { chatStream } from './ollama';
 import { candidateTasks, type RuleContext } from './rules';
 import { BUILT_IN_PROFILES } from './plants';
@@ -155,6 +155,29 @@ describe('care profiles from Gemma', () => {
       months: { harvest: [10] },
       tips: { harvest: 'Ready when the pips turn brown.' },
     });
+  });
+});
+
+describe('asking the garden', () => {
+  it('sends a photo with the question, and the conversation before it', async () => {
+    const bodies: Record<string, any>[] = [];
+    const fetch = (async (_url: string, init?: RequestInit) => {
+      bodies.push(JSON.parse(String(init?.body)));
+      return new Response('{"message":{"content":"Looks like scab."}}\n');
+    }) as typeof globalThis.fetch;
+    const earlier = [
+      { role: 'user' as const, content: 'Hello' },
+      { role: 'assistant' as const, content: 'Hi!' },
+    ];
+
+    let text = '';
+    for await (const part of askGarden(context(), [], { text: 'What are these spots?', photo: 'AAAA' }, earlier, { fetch })) text += part;
+
+    expect(text).toBe('Looks like scab.');
+    const messages = bodies[0].messages;
+    expect(messages[0].content).toContain('When a photo comes with the question');
+    expect(messages.slice(1, 3)).toEqual(earlier);
+    expect(messages[3]).toEqual({ role: 'user', content: 'What are these spots?', images: ['AAAA'] });
   });
 });
 

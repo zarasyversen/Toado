@@ -86,6 +86,10 @@ export interface Garden {
   pests: string[];
   areas: Area[];
   plants: Plant[];
+  /** Care profiles you made (with Gemma's help) for plants the app doesn't know. */
+  profiles?: CareProfile[];
+  /** The built-in example garden, until you start your own. */
+  demo?: boolean;
 }
 
 export type EventType =

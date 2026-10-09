@@ -4,6 +4,7 @@ import type { Garden } from './types';
 export function demoGarden(): Garden {
   return {
     name: 'Forshaga garden',
+    demo: true,
     place: { name: 'Forshaga', lat: 59.52541, lon: 13.48127, country: 'Sweden', region: 'Värmland County' },
     pests: ['deer'],
     areas: [

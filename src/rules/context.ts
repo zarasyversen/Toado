@@ -1,5 +1,5 @@
-import type { CareProfile, DayWeather, Garden, GardenEvent, Plant, SeasonInfo, Weather } from '../types';
-import { hemisphere } from '../climate';
+import type { CareOverrides, CareProfile, DayWeather, Garden, GardenEvent, Plant, SeasonInfo, Weather } from '../types';
+import { hemisphere, otherHemisphere } from '../climate';
 
 /** Everything a rule may look at. Rules are pure: same context, same tasks. */
 export interface RuleContext {
@@ -11,16 +11,20 @@ export interface RuleContext {
   now: Date;
 }
 
-/** The plant's care profile, with its own overrides (say, its variety's harvest) on top. */
-export function profileOf(ctx: RuleContext, plant: Plant): CareProfile | undefined {
-  const base = plant.profileId ? ctx.profiles[plant.profileId] : undefined;
-  if (!base || !plant.care) return base;
+/** A profile with a plant's own overrides (say, its variety's harvest) on top. */
+export function withOverrides(base: CareProfile, care: CareOverrides | undefined): CareProfile {
+  if (!care) return base;
   return {
     ...base,
-    ...plant.care,
-    months: { ...base.months, ...plant.care.months },
-    tips: { ...base.tips, ...plant.care.tips },
+    ...care,
+    months: { ...base.months, ...care.months },
+    tips: { ...base.tips, ...care.tips },
   };
+}
+
+export function profileOf(ctx: Pick<RuleContext, 'profiles'>, plant: Plant): CareProfile | undefined {
+  const base = plant.profileId ? ctx.profiles[plant.profileId] : undefined;
+  return base && withOverrides(base, plant.care);
 }
 
 export function growing(ctx: RuleContext): Plant[] {
@@ -40,7 +44,7 @@ export function tonightMin(ctx: RuleContext): number {
 export function gardenMonth(ctx: RuleContext): number {
   const month = Number(ctx.weather.today.slice(5, 7));
   const south = hemisphere(ctx.garden.place?.lat ?? 0) === 'south';
-  return south ? ((month + 5) % 12) + 1 : month;
+  return south ? otherHemisphere(month) : month;
 }
 
 export function celsius(t: number): string {

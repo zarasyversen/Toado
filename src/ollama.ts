@@ -3,6 +3,8 @@
 export interface ChatMessage {
   role: 'system' | 'user' | 'assistant';
   content: string;
+  /** Photos for a vision model, base64 without the data: prefix. */
+  images?: string[];
 }
 
 export interface OllamaOptions {
