@@ -26,3 +26,7 @@ To use a different model, change `VITE_OLLAMA_MODEL` in `.env`.
 - `pnpm dev`: start the dev server (proxies `/ollama` to `localhost:11434`)
 - `pnpm test`: run the unit tests
 - `pnpm build`: type-check and build
+
+## License
+
+[MIT](LICENSE)
