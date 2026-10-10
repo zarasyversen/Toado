@@ -37,7 +37,7 @@ In this one-minute video I'm in the garden. I take a photo of the pallet collars
 
 [![Gemma's answer about the pallet collars. Click to watch the video](https://raw.githubusercontent.com/zarasyversen/Toado/main/docs/images/gemma-pallet-answer.jpg)](https://github.com/user-attachments/assets/201d0daa-0c43-4d82-b76b-b93534b55aad)
 
-**▶️ [Watch the video (1 minute)](VIDEO_LINK)**
+**▶️ [Watch the video (1 minute)](https://github.com/user-attachments/assets/fd8647ad-5136-495f-81fe-72254f2479eb)**
 
 The day's plan, the same jobs all ticked off, and the log of what I did:
 
