@@ -138,7 +138,6 @@ I built Toado together with Claude Code, working from a written plan step by ste
 - **Gemma needed some help.** At first it said tonight would be 3 °C when the forecast low was −2 °C, so now the prompt states tonight's low directly. It also called a gooseberry a flower.
 - **A code review caught real bugs.** One was that editing one plant changed the care for every plant of that kind.
 - **Testing it myself helped most.** I got stuck in the demo garden with no way back, so that got fixed. When I found out Gemma could read images, I added photo questions. Opening it on my phone showed that Ollama was turning away requests from the Tailscale address.
-- **The look is mine.** The colours come from a palette I picked.
 
 ## Prize Categories
 
