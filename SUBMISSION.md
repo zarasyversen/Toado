@@ -35,7 +35,7 @@ When I've done a job, I tick it and it goes into the log. Toado reads the log to
 
 In this one-minute video I'm in the garden. I take a photo of the pallet collars I've just cleared and ask Gemma whether I can leave them like that over winter.
 
-[![Gemma's answer about the pallet collars. Click to watch the video](https://raw.githubusercontent.com/zarasyversen/Toado/main/docs/images/gemma-pallet-answer.jpg)](VIDEO_LINK)
+[![Gemma's answer about the pallet collars. Click to watch the video](https://raw.githubusercontent.com/zarasyversen/Toado/main/docs/images/gemma-pallet-answer.jpg)](https://github.com/user-attachments/assets/201d0daa-0c43-4d82-b76b-b93534b55aad)
 
 **▶️ [Watch the video (1 minute)](VIDEO_LINK)**
 
