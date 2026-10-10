@@ -2,3 +2,6 @@ node_modules
 dist
 .env.local
 .DS_Store
+
+# Original photos and video (full size, with location data)
+screenshots/

@@ -4,6 +4,18 @@
 
 Toado is a year-round garden to-do app with a toad on it. It looks at your own garden (trees, bushes, beds, greenhouse), the season and today's weather, then gives you a few short jobs to do outside. Gemma runs locally through Ollama, so your garden data stays on your machine.
 
+## Demo
+
+A rainy October Saturday: Toado's plan for the day, then asking Gemma about the cleared pallet collars with a photo.
+
+VIDEO_LINK
+
+<p>
+  <img src="docs/images/app-today.jpg" alt="Today's plan" width="240">
+  <img src="docs/images/gemma-pallet-answer.jpg" alt="Gemma answering a photo question" width="240">
+  <img src="docs/images/app-log.jpg" alt="The garden log" width="240">
+</p>
+
 ## Setup
 
 1. Install [Ollama](https://ollama.com) and pull a Gemma model:
